@@ -17,8 +17,35 @@ var passwordCriteria = {
         return true;
       }
     },
-    getCriteria: function(){
-      return [this.length,this.lower_case,this.upper_case,this.numbers,this.sp_char];
+    assignCharCounts: function() {
+      var count = 0;
+      var CharCounts = [];
+      var len_track = this.length;
+
+      if(this.lower_case){ count++;};
+      if(this.upper_case){ count++;};
+      if(this.numbers){count++;};
+      if(this.sp_char){count++;};
+
+      for(var i = 0; i < count; i++){
+        if(count === count-1){
+          CharCounts.push(len_track);
+        }
+        else{
+        var t = Math.floor(Math.random() * len_track * .7);
+        if(t > this.length/2){t = Math.round(t/2);};
+        CharCounts.push(t);
+        len_track -= t;
+        }
+      }
+
+      if(CharCounts.indexOf(0) > -1){
+        return this.assignCharCounts();
+      }
+      else{
+        return CharCounts;
+      }      
+      
     }
 };
 
@@ -33,6 +60,7 @@ var passwordHelper = {
       return String.fromCharCode(Math.random() * 26 + this.alpha_offset);
     }
   },
+  criteriaCounter: [{name: "lower",count:0},{name: "upper",count:0},{name: "number",count:0},{name: "special",count:0}],
   getNumber: function(){
     return Math.floor(Math.random() * 10);
   },
@@ -56,12 +84,11 @@ var generatePassword = function() {
     passwordCriteria.numbers = window.confirm("Would you like to include numbers?");
     passwordCriteria.sp_char = window.confirm("Would you like to use special characters? ex. ?,/,-,*,#,@,$");
   }
-
-  var choices = passwordCriteria.getCriteria();
-  //choices.
-
   //based on options and password length randomly choose how many of each character type goes into password
+  var characterCount = passwordCriteria.assignCharCounts();
+  var password = [];
 
+  
 
   //generate random characters (consider an object that contains that different options), hav methods to help select
 
