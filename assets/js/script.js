@@ -1,6 +1,8 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+
+
 var passwordCriteria = {
     length: 7,
     lower_case: false,
@@ -14,6 +16,9 @@ var passwordCriteria = {
       else{
         return true;
       }
+    },
+    getCriteria: function(){
+      return [this.length,this.lower_case,this.upper_case,this.numbers,this.sp_char];
     }
 };
 
@@ -22,14 +27,19 @@ var passwordHelper = {
   alpha_offset: 97,
   getAlpha: function(upper){
     if(upper){
-      return String.fromCharCode(Math.random() * 26 + this.alpha_offset).toUpperCase();
+      return String.fromCharCode(Math.floor(Math.random() * 26 + this.alpha_offset)).toUpperCase();
     }
     else{
       return String.fromCharCode(Math.random() * 26 + this.alpha_offset);
     }
+  },
+  getNumber: function(){
+    return Math.floor(Math.random() * 10);
+  },
+  getSpChar: function(){
+    return this.sp_char_list[Math.floor(Math.random() * (this.sp_char_list.length + 1))];
   }
-}
-
+};
 
 console.log(passwordCriteria);
 
@@ -47,9 +57,11 @@ var generatePassword = function() {
     passwordCriteria.sp_char = window.confirm("Would you like to use special characters? ex. ?,/,-,*,#,@,$");
   }
 
-
+  var choices = passwordCriteria.getCriteria();
+  //choices.
 
   //based on options and password length randomly choose how many of each character type goes into password
+
 
   //generate random characters (consider an object that contains that different options), hav methods to help select
 
