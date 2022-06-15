@@ -38,7 +38,7 @@ var passwordCriteria = {
         CharCounts.push({name: "special",count:0});
         count++;
       };
-      //console.log(CharCounts);
+      console.log(CharCounts);
 
       for(var i = 0; i < count; i++){
         if(count === count-1){
@@ -51,13 +51,15 @@ var passwordCriteria = {
         len_track -= t;
         }
       }
-
-      if(CharCounts.indexOf(0) > -1){
-        return this.assignCharCounts();
-      }
-      else{
+//need to resolve issue with finding 0s
+      CharCounts.forEach(function (){
+        if(this.count < 1){
+          return getCharCounts();
+        };
+      });
+      
         return CharCounts;
-      }      
+            
       
     },
 };
