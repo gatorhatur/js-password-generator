@@ -17,6 +17,20 @@ var passwordCriteria = {
     }
 };
 
+var passwordHelper = {
+  sp_char_list: ["?","/","-","*","#","@","$"],
+  alpha_offset: 97,
+  getAlpha: function(upper){
+    if(upper){
+      return String.fromCharCode(Math.random() * 26 + this.alpha_offset).toUpperCase();
+    }
+    else{
+      return String.fromCharCode(Math.random() * 26 + this.alpha_offset);
+    }
+  }
+}
+
+
 console.log(passwordCriteria);
 
 var generatePassword = function() {
@@ -26,11 +40,11 @@ var generatePassword = function() {
   }
 
   while(!passwordCriteria.minCriteria()){
-  window.alert("Passwords must use at least one of the criteria. You will be asked these questions again if you click cancel, to all");
-  passwordCriteria.lower_case = window.confirm("Would you like to use lower case letters?");
-  passwordCriteria.upper_case = window.confirm("Woudl you like to use upper case letters?");
-  passwordCriteria.numbers = window.confirm("Would you like to include numbers?");
-  passwordCriteria.sp_char = window.confirm("Would you like to use special characters? ex. ?,/,-,*,#,@,$");
+    window.alert("Passwords must use at least one of the criteria. You will be asked these questions again if you click cancel, to all");
+    passwordCriteria.lower_case = window.confirm("Would you like to use lower case letters?");
+    passwordCriteria.upper_case = window.confirm("Woudl you like to use upper case letters?");
+    passwordCriteria.numbers = window.confirm("Would you like to include numbers?");
+    passwordCriteria.sp_char = window.confirm("Would you like to use special characters? ex. ?,/,-,*,#,@,$");
   }
 
 
