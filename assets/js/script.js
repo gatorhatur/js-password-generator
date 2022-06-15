@@ -2,7 +2,7 @@
 var generateBtn = document.querySelector("#generate");
 
 
-
+//issues with the getCharCounts
 var passwordCriteria = {
     length: 7,
     lower_case: false,
@@ -17,24 +17,37 @@ var passwordCriteria = {
         return true;
       }
     },
-    assignCharCounts: function() {
+    getCharCounts: function() {
       var count = 0;
       var CharCounts = [];
       var len_track = this.length;
 
-      if(this.lower_case){ count++;};
-      if(this.upper_case){ count++;};
-      if(this.numbers){count++;};
-      if(this.sp_char){count++;};
+      if(this.lower_case){
+        CharCounts.push({name: "lower",count:0}); 
+        count++;
+      };
+      if(this.upper_case){ 
+        CharCounts.push({name: "upper",count:0});
+        count++;
+      };
+      if(this.numbers){
+        CharCounts.push({name: "number",count:0});
+        count++;
+      };
+      if(this.sp_char){
+        CharCounts.push({name: "special",count:0});
+        count++;
+      };
+      //console.log(CharCounts);
 
       for(var i = 0; i < count; i++){
         if(count === count-1){
-          CharCounts.push(len_track);
+          CharCounts[i].count = len_track;
         }
         else{
         var t = Math.floor(Math.random() * len_track * .7);
         if(t > this.length/2){t = Math.round(t/2);};
-        CharCounts.push(t);
+        CharCounts[i].count = t ;
         len_track -= t;
         }
       }
@@ -46,7 +59,7 @@ var passwordCriteria = {
         return CharCounts;
       }      
       
-    }
+    },
 };
 
 var passwordHelper = {
@@ -60,13 +73,12 @@ var passwordHelper = {
       return String.fromCharCode(Math.random() * 26 + this.alpha_offset);
     }
   },
-  criteriaCounter: [{name: "lower",count:0},{name: "upper",count:0},{name: "number",count:0},{name: "special",count:0}],
   getNumber: function(){
     return Math.floor(Math.random() * 10);
   },
   getSpChar: function(){
     return this.sp_char_list[Math.floor(Math.random() * (this.sp_char_list.length + 1))];
-  }
+  },
 };
 
 console.log(passwordCriteria);
@@ -85,10 +97,10 @@ var generatePassword = function() {
     passwordCriteria.sp_char = window.confirm("Would you like to use special characters? ex. ?,/,-,*,#,@,$");
   }
   //based on options and password length randomly choose how many of each character type goes into password
-  var characterCount = passwordCriteria.assignCharCounts();
+  var characterCount = passwordCriteria.getCharCounts();
   var password = [];
 
-  
+ 
 
   //generate random characters (consider an object that contains that different options), hav methods to help select
 
