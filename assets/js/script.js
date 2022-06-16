@@ -58,7 +58,8 @@ var passwordCriteria = {
       CharCounts.forEach(function (arrayItem){
         if(arrayItem.count < 1){
           console.log("One of the counts was 0, trying again!");
-          return getCharCounts();
+          debugger;
+          CharCounts = passwordCriteria.getCharCounts();
         }
       });
       
@@ -104,6 +105,7 @@ var generatePassword = function() {
   }
   //based on options and password length randomly choose how many of each character type goes into password
   var characterCount = passwordCriteria.getCharCounts();
+  console.log(characterCount);
   var password = [];
 
  
