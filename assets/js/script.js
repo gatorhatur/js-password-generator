@@ -21,6 +21,7 @@ var passwordCriteria = {
       var count = 0;
       var CharCounts = [];
       var len_track = this.length;
+      console.log("len_track = " + len_track);
 
       if(this.lower_case){
         CharCounts.push({name: "lower",count:0}); 
@@ -38,10 +39,11 @@ var passwordCriteria = {
         CharCounts.push({name: "special",count:0});
         count++;
       };
-      console.log(CharCounts);
+      //console.log(CharCounts);
 
       for(var i = 0; i < count; i++){
-        if(count === count-1){
+        if(i === count-1){
+          console.log("Hit the final count");
           CharCounts[i].count = len_track;
         }
         else{
@@ -49,19 +51,21 @@ var passwordCriteria = {
         if(t > this.length/2){t = Math.round(t/2);};
         CharCounts[i].count = t ;
         len_track -= t;
+        console.log("i = " + i + "  and len_track = " + len_track);
         }
       }
 //need to resolve issue with finding 0s
-      CharCounts.forEach(function (){
-        if(this.count < 1){
+      CharCounts.forEach(function (arrayItem){
+        if(arrayItem.count < 1){
+          console.log("One of the counts was 0, trying again!");
           return getCharCounts();
-        };
+        }
       });
       
         return CharCounts;
             
       
-    },
+    }
 };
 
 var passwordHelper = {
