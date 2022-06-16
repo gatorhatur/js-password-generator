@@ -116,7 +116,7 @@ console.log(passwordCriteria);
 
 var generatePassword = function() {
   //prompt user for complexity options to user
-  while(passwordCriteria.length < 8){
+  while(isNaN(passwordCriteria.length) || passwordCriteria.length < 8 || passwordCriteria.length > 128){
     passwordCriteria.length = window.prompt("How long would you like your password to be? Choose a number between 8 and 128.");
   }
 
