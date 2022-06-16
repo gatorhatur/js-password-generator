@@ -58,14 +58,13 @@ var passwordCriteria = {
       CharCounts.forEach(function (arrayItem){
         if(arrayItem.count < 1){
           console.log("One of the counts was 0, trying again!");
-          debugger;
+          
           CharCounts = passwordCriteria.getCharCounts();
         }
       });
       
         return CharCounts;
             
-      
     }
 };
 
@@ -84,8 +83,29 @@ var passwordHelper = {
     return Math.floor(Math.random() * 10);
   },
   getSpChar: function(){
-    return this.sp_char_list[Math.floor(Math.random() * (this.sp_char_list.length + 1))];
-  },
+    return this.sp_char_list[Math.floor(Math.random() * (this.sp_char_list.length))];
+  }
+};
+
+var scramble = function(charArray){
+  //user fisher yates method to randomize the string order
+  //https://www.w3schools.com/js/js_array_sort.asp
+  console.log(charArray);
+  for(var i = charArray.length-1; i > 0; i--){
+    var j = Math.floor(Math.random() * i);
+    var k = charArray[i];
+    charArray[i] = charArray[j];
+    charArray[j] = k;
+  }
+  console.log(charArray.length);
+  console.log(charArray);
+
+  var password = charArray.join("");
+  console.log(password.length);
+  console.log(password);
+  //console.log("Length before replace is " + password.length)
+  //console.log(password.join());
+  return password;
 };
 
 console.log(passwordCriteria);
@@ -105,16 +125,40 @@ var generatePassword = function() {
   }
   //based on options and password length randomly choose how many of each character type goes into password
   var characterCount = passwordCriteria.getCharCounts();
-  console.log(characterCount);
   var password = [];
+  
+  characterCount.forEach(function(object){
+    switch(object.name){
+      case "lower":
+        for(var i = 0;i < object.count;i++){
+          password.push(passwordHelper.getAlpha(false));
+        }
+        break;
+      case "upper":
+        for(var i = 0;i < object.count;i++){
+          password.push(passwordHelper.getAlpha(true));
+        }
+        break;
+      case "number":
+        for(var i = 0;i < object.count;i++){
+          password.push(passwordHelper.getNumber());
+        }
+        break;
+      default:
+        for(var i = 0;i < object.count;i++){
+          password.push(passwordHelper.getSpChar());
+        }
+    }
+  });
 
- 
+
+  console.log("Password before being send to scambler " + password);
 
   //generate random characters (consider an object that contains that different options), hav methods to help select
 
   //push all into an array and randomize
 
-  return password;
+  return scramble(password);
 
 };
 
