@@ -44,17 +44,19 @@ var passwordCriteria = {
       for(var i = 0; i < count; i++){
         if(i === count-1){
           //console.log("Hit the final count");
+          //on the last object set the remaining count since it does not need to be randomized
           CharCounts[i].count = len_track;
         }
         else{
-        var t = Math.floor(Math.random() * len_track * .7);
-        if(t > this.length/2){t = Math.round(t/2);};
-        CharCounts[i].count = t ;
-        len_track -= t;
-        console.log("i = " + i + "  and len_track = " + len_track);
+          var t = Math.floor(Math.random() * len_track * .7);
+          if(t > this.length/2){t = Math.round(t/2);};
+          CharCounts[i].count = t ;
+          len_track -= t;
+          console.log("i = " + i + "  and len_track = " + len_track);
         }
       }
 
+      //verify that we have no count = 0 on our objects, if we do we call the .getCharCounts() method again
       CharCounts.forEach(function (arrayItem){
         if(arrayItem.count < 1){
           console.log("One of the counts was 0, trying again!");
@@ -127,10 +129,12 @@ var generatePassword = function() {
   }
   //based on options and password length randomly choose how many of each character type goes into password
   var characterCount = passwordCriteria.getCharCounts();
-  var password = [];
   
-   //generate random characters (consider an object that contains that different options), hav methods to help select
+  
+  //generate random characters (consider an object that contains that different options), hav methods to help select
   //iterate character count object and push characters into the empty password array
+  var password = [];
+
   characterCount.forEach(function(object){
     switch(object.name){
       case "lower":
