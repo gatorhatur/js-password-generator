@@ -1,7 +1,10 @@
 # JavaScript Password Generator
 
 ## Purpose
-Given criteria chosen by a user this application will return a randomly generated password.
+Given criteria chosen by a user this application will return a randomly generated password. This exercise is intended to practice and apply the use of multiple methods available in JavaScript, especially around array and object manipulation.
+
+### Code Sample
+![Code Snippet of the passwordHelper object](/assets/images/code-snippet.jpg)
 
 ## User Story
 AS AN employee with access to sensitive data<br>
@@ -24,3 +27,7 @@ WHEN all prompts are answered<br>
 THEN a password is generated that matches the selected criteria<br>
 WHEN the password is generated<br>
 THEN the password is either displayed in an alert or written to the page<br>
+
+## Completed Work
+<strong>Password Generator Site: </strong><a href="https://gatorhatur.github.io/js-password-generator/">Click Here</a><br>
+<strong>Password Generator GitHub Repo: </strong><a href="https://github.com/gatorhatur/js-password-generator">Click Here</a>
