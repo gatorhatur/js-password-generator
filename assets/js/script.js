@@ -2,14 +2,14 @@
 var generateBtn = document.querySelector("#generate");
 
 
-//issues with the getCharCounts
+//Criteria object and methods for determining the password
 var passwordCriteria = {
     length: 7,
     lower_case: false,
     upper_case: false,
     numbers: false,
     sp_char: false,
-    minCriteria: function(){
+    minCriteria: function(){ //used to check whather a user had declined all prompts
       if(!this.lower_case && !this.upper_case && !this.numbers && !this.sp_char ){
         return false;
       }
@@ -17,7 +17,7 @@ var passwordCriteria = {
         return true;
       }
     },
-    getCharCounts: function() {
+    getCharCounts: function() { //randomly determines how many of each 'true' criteria should be used.
       var count = 0;
       var CharCounts = [];
       var len_track = this.length;
@@ -43,7 +43,7 @@ var passwordCriteria = {
 
       for(var i = 0; i < count; i++){
         if(i === count-1){
-          console.log("Hit the final count");
+          //console.log("Hit the final count");
           CharCounts[i].count = len_track;
         }
         else{
@@ -54,7 +54,7 @@ var passwordCriteria = {
         console.log("i = " + i + "  and len_track = " + len_track);
         }
       }
-//need to resolve issue with finding 0s
+
       CharCounts.forEach(function (arrayItem){
         if(arrayItem.count < 1){
           console.log("One of the counts was 0, trying again!");
@@ -68,6 +68,8 @@ var passwordCriteria = {
     }
 };
 
+//object that contains the available special characters and offsets for using ASCII characters
+//also contains the methods to assist in randomly generating and assigning characters
 var passwordHelper = {
   sp_char_list: ["?","/","-","*","#","@","$"],
   alpha_offset: 97,
@@ -88,23 +90,23 @@ var passwordHelper = {
 };
 
 var scramble = function(charArray){
-  //user fisher yates method to randomize the string order
+  //use fisher yates method to randomize the string order
   //https://www.w3schools.com/js/js_array_sort.asp
-  console.log(charArray);
+
+  //console.log(charArray);
   for(var i = charArray.length-1; i > 0; i--){
     var j = Math.floor(Math.random() * i);
     var k = charArray[i];
     charArray[i] = charArray[j];
     charArray[j] = k;
   }
-  console.log(charArray.length);
-  console.log(charArray);
+  //console.log(charArray.length);
+  //console.log(charArray);
 
   var password = charArray.join("");
-  console.log(password.length);
-  console.log(password);
-  //console.log("Length before replace is " + password.length)
-  //console.log(password.join());
+  //console.log(password.length);
+  //console.log(password);
+
   return password;
 };
 
@@ -127,6 +129,8 @@ var generatePassword = function() {
   var characterCount = passwordCriteria.getCharCounts();
   var password = [];
   
+   //generate random characters (consider an object that contains that different options), hav methods to help select
+  //iterate character count object and push characters into the empty password array
   characterCount.forEach(function(object){
     switch(object.name){
       case "lower":
@@ -151,10 +155,7 @@ var generatePassword = function() {
     }
   });
 
-
-  console.log("Password before being send to scambler " + password);
-
-  //generate random characters (consider an object that contains that different options), hav methods to help select
+  //console.log("Password before being send to scambler " + password);
 
   //push all into an array and randomize
 
